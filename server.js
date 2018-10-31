@@ -4,13 +4,18 @@ const { buildSchema } = require('graphql');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
+// Connection to Database
+mongoose.connect("mongodb://localhost/graphql", { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'))
+
 const Courses = require("./database")
 
 // GraphQL schema
 const schema = buildSchema(`
   type Query {
     course(id: String!): Course
-    courses(topic: String): [Course]
+    courses(topic: String): Course
   },
   type Course {
     _id: String
@@ -87,10 +92,10 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use('/graphql', express_graphql({
+app.use('/courses', express_graphql({
   schema: schema,
   rootValue: root,
-  graphiql: false
+  graphiql: true
 }));
 
 app.get('/', function(req, res) {

@@ -5,8 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script>
+        const query = `query getCourse {
+            courses{
+                author
+                description
+                topic
+                url
+            }
+        }`
+        fetch('/courses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({query})
+      })
+        .then(r => r.json())
+        .then(data => console.log('data returned:', data));
+    </script>
 </head>
 <body>
     <h1>hallo welt</h1>
+    
 </body>
 </html>
