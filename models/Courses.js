@@ -1,7 +1,7 @@
-//Todo: Handle Conneciton Error
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var Course = new mongoose.Schema({
+var Course = new Schema({
   _id: String,
   title: String,
   author: String,
