@@ -84,10 +84,17 @@ const root = {
 
 // Create an express server and a GraphQL endpoint
 const app = express();
+
+app.set('view engine', 'ejs');
+
 app.use('/graphql', express_graphql({
   schema: schema,
   rootValue: root,
-  graphiql: true
+  graphiql: false
 }));
+
+app.get('/', function(req, res) {
+  res.render('index');
+});
 
 app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost:4000/graphql'));
